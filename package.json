@@ -1,0 +1,39 @@
+{
+  "name": "webdriverio-command-parser",
+  "version": "0.0.1",
+  "description": "parser for webdriverio custom command",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha ./tests/spec.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "empty"
+  },
+  "bin": {
+    "wparser": "./cli.js"
+  },
+  "keywords": [
+    "webdriver",
+    "webdriverio",
+    "parser",
+    "custom",
+    "command",
+    "standalone",
+    "autocomplete"
+  ],
+  "author": "Alexander Krasnov",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "chai": "^4.1.0",
+    "eslint": "^4.2.0",
+    "mocha": "^3.4.2"
+  },
+  "lint": "eslint ./ --cache --format codeframe && echo '\n\\033[34mESLinted!\\033[39m\n'",
+  "precommit": "lint",
+  "dependencies": {
+    "command-line-args": "^4.0.6",
+    "command-line-usage": "^4.0.0",
+    "precommit": "^1.2.2"
+  }
+}
