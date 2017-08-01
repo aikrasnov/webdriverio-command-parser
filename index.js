@@ -1,5 +1,7 @@
 const fs = require('fs');
 
+const parsedCommands = [];
+
 const isDirectory = path => {
     if (typeof path !== 'string' || path.length <= 0) {
         throw new Error(`${path} is not string, or it empty`);
@@ -7,58 +9,46 @@ const isDirectory = path => {
     return (/[/\\]$/).test(path);
 };
 
-const writeToFile = (cmds, fileName, eslintDisable) => {
-    return new Promise((resolve, reject) => {
+const writeToFile = (fileName, eslintDisable) => {
 
-        // if directory use default filename
-        if (isDirectory(fileName)) {
-            fileName = `${fileName}/autocomplete.js`;
-        }
-        const file = fs.createWriteStream(fileName);
-        file.on('error', err => {
-            reject(err);
-        });
+    const parsedCommandsNames = [];
 
-        if (eslintDisable) {
-            file.write('/*eslint-disable */\n');
-        }
-
-        const write = cmd => {
-            return new Promise(resolveWrite => {
-                file.write(`${cmd}\n`);
-                resolveWrite(0);
-            });
-        };
-
-        Promise.all(cmds.map(arrayCmd => {
-            return arrayCmd.map(cmd => {
-                return write(cmd);
-            });
-        })).then(result => {
-            resolve(result);
-        }).catch(err => {
-            reject(err);
-        });
+    // if directory use default filename
+    if (isDirectory(fileName)) {
+        fileName = `${fileName}/autocomplete.js`;
+    }
+    const file = fs.createWriteStream(fileName);
+    file.on('error', err => {
+        throw new Error(err);
     });
+
+    if (eslintDisable) {
+        file.write('/*eslint-disable */\n');
+    }
+
+    parsedCommands.forEach(cmd => {
+        file.write(`${cmd.command}\n`);
+        parsedCommandsNames.push(cmd.commandName);
+    });
+
+    file.write(`\n\nmodule.exports = {\n${parsedCommandsNames.join(',\n')}\n}`);
 };
 
 const parseCmds = (cmds, showAll) => {
     const reName = /['"`][a-zA-Z0-9]*\b/;
     const reArgs = /(\(.*\)|[a-zA-Z]{1,999})/;
-    const functions = [];
 
     cmds.forEach(cmd => {
-        const functName = cmd.match(reName);
+        let functName = cmd.match(reName);
         cmd = cmd.replace(/(.addCommand.['"`][a-zA-Z0-9]*|\sasync\s|\s|\r\n)/g, '');
         const functArgs = cmd.match(reArgs);
         if (functName && functArgs) {
-            functions.push(`export const ${functName[0].replace(/['"`]/g, '')} = ${functArgs[0]} => {};`);
+            functName = functName[0].replace(/['"`]/g, '');
+            parsedCommands.push({command: `export const ${functName} = ${functArgs[0]} => {};`, commandName: functName});
         } else if (showAll) {
             console.log('not match: ', cmd);
         }
     });
-
-    return functions;
 };
 
 const parseFile = (path, re, showAll) => {
@@ -111,13 +101,13 @@ const parseDirectory = (path, reFile, reCommand, showAll) => {
 const parsePath = (path, fileName = 'autocomplete.js', reFile = /.*\.js$/, reCommand = /.addCommand.*\s=>\s{/, eslintDisable = true, showAll = true) => {
     return new Promise((resolve, reject) => {
         isDirectory(path)
-            ? parseDirectory(path, reFile, reCommand, showAll).then(cmnd => {
-                writeToFile(cmnd, fileName, eslintDisable);
+            ? parseDirectory(path, reFile, reCommand, showAll).then(() => {
+                writeToFile(fileName, eslintDisable);
             }).catch(err => {
                 reject(err);
             })
-            : parseFile(path, reCommand).then(cmnd => {
-                writeToFile(cmnd, fileName, eslintDisable, showAll);
+            : parseFile(path, reCommand).then(() => {
+                writeToFile(fileName, eslintDisable, showAll);
             }).catch(err => {
                 reject(err);
             });

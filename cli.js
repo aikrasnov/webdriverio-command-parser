@@ -20,7 +20,7 @@ const SECTIONS = [{
         {
             alias: 'o',
             name: 'output',
-            description: 'filename for write parsed commands'
+            description: 'path to directory or file for write parsed commands'
         },
         {
             alias: 'f',

@@ -1,6 +1,6 @@
 {
   "name": "webdriverio-command-parser",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "parser for webdriverio custom command",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "empty"
+    "url": "https://github.com/aikrasnov/webdriverio-command-parser"
   },
   "bin": {
     "wparser": "./cli.js"

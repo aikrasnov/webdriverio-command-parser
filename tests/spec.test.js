@@ -37,9 +37,8 @@ describe('parseCmnds', () => {
         ];
 
         for (const cmd of EXAMPLE) {
-            it('should return array', () => {
-                expect(parseCmds([cmd])).to.be.a('array');
-                expect(parseCmds([cmd])).to.not.be.empty;
+            it('should return undefined', () => {
+                expect(parseCmds([cmd])).to.be.a('undefined');
             });
         }
     });
