@@ -1,6 +1,6 @@
 {
   "name": "webdriverio-command-parser",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "parser for webdriverio custom command",
   "main": "index.js",
   "scripts": {
