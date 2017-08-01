@@ -1,3 +1,8 @@
+[![Build Status](https://travis-ci.org/aikrasnov/webdriverio-command-parser.svg?branch=master)](https://travis-ci.org/aikrasnov/webdriverio-command-parser)
+[![Coverage Status](https://coveralls.io/repos/github/aikrasnov/webdriverio-command-parser/badge.svg)](https://coveralls.io/github/aikrasnov/webdriverio-command-parser)
+
+[![NPM](https://nodei.co/npm/webdriverio-command-parser.png)](https://npmjs.org/package/webdriverio-command-parser)
+
 Webdriverio-command-parser
 ===================
 
@@ -27,7 +32,7 @@ module.exports = {
 ----------
 
 
-\n
+
 Установка
 -------------
 
