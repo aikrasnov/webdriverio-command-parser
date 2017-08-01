@@ -4,7 +4,8 @@
   "description": "parser for webdriverio custom command",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha ./tests/spec.test.js"
+    "test": "./node_modules/mocha/bin/mocha ./tests/spec.test.js",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
   "repository": {
     "type": "git",
@@ -26,8 +27,10 @@
   "license": "GPL-3.0",
   "devDependencies": {
     "chai": "^4.1.0",
+    "coveralls": "^2.13.1",
     "eslint": "^4.2.0",
-    "mocha": "^3.4.2"
+    "istanbul": "^0.4.5",
+    "mocha": "^3.5.0"
   },
   "lint": "eslint ./ --cache --format codeframe && echo '\n\\033[34mESLinted!\\033[39m\n'",
   "precommit": "lint",
