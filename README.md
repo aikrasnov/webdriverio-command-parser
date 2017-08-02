@@ -7,6 +7,78 @@ Webdriverio-command-parser
 ===================
 
 
+Webdriverio-command-parser generates  js module with functions based on [custom command](http://webdriver.io/api/utility/addCommand.html#Usage) for [webdriverio](http://webdriver.io/). 
+
+Source file
+```javascript
+    /**
+    * Check something
+    */
+    browser.addCommand('myCustomCommand', async (myArg, myArgTwo) => {
+       // do smth
+    });
+```
+Outcome
+```javascript
+const myCustomCommand => (myArg, MyArgTwo) => {};
+
+module.exports = {
+	myCustomCommand
+};
+
+```
+Outcoming module may be used for [autocomplete](https://blog.jetbrains.com/webstorm/2014/07/how-webstorm-works-completion-for-javascript-libraries/) in WebStorm.
+
+----------
+
+
+
+Installation
+-------------
+
+```javascript
+npm install --save webdriverio-command-parser
+```
+for CLI
+```javascript
+npm install -g webdriverio-command-parser
+```
+
+Usage
+-------------
+
+CLI (e.g with cron)
+```bash
+wparser -p /path/to/your/commands/ -o /place/for/save/parsed/commands/
+```
+You can indicate path to folder or directory
+
+Possible args
+```bash
+  -p, --path             path to file or directory                           
+  -o, --output           path to directory or file for write parsed commands 
+  -f, --refile           regexp for match files                              
+  -c, --recommand        regexp for match custom command definitions         
+  -d, --eslintdisable    disable eslint in output file                       
+  -s, --showall          show defective commands                             
+  -h, --help             show help   
+```
+
+As extrenal library
+```javascript
+const {parsePath} = require('webdriverio-command-parser');
+parsePath('/path/to/your/command').then(() => {
+    console.log('done');
+}).catch(err => {
+    console.log(`some error here ${err}`);
+});
+```
+
+
+Webdriverio-command-parser
+===================
+
+
 Webdriverio-command-parser генерирует js модуль с функциями на основе [кастомных комманд](http://webdriver.io/api/utility/addCommand.html#Usage) для [webdriverio](http://webdriver.io/). 
 
 Исходный файл
@@ -39,7 +111,7 @@ module.exports = {
 ```javascript
 npm install --save webdriverio-command-parser
 ```
-Или для использования из командной строки (например, в кроне)
+Или для использования из командной строки 
 ```javascript
 npm install -g webdriverio-command-parser
 ```
@@ -47,7 +119,7 @@ npm install -g webdriverio-command-parser
 Использование
 -------------
 
-Из командой строки
+Из командой строки (например, в кроне)
 ```bash
 wparser -p /path/to/your/commands/ -o /place/for/save/parsed/commands/
 ```
