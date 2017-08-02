@@ -49,7 +49,7 @@ npm install -g webdriverio-command-parser
 
 Из командой строки
 ```bash
-wparser -p /path/to/you/commands/ -o /place/for/save/parsed/commands/
+wparser -p /path/to/your/commands/ -o /place/for/save/parsed/commands/
 ```
 Можно указывать путь до файла, или до папки.
 
@@ -67,7 +67,7 @@ wparser -p /path/to/you/commands/ -o /place/for/save/parsed/commands/
 Как подключаемую либу
 ```javascript
 const {parsePath} = require('webdriverio-command-parser');
-parsePath('/path/to/you/command').then(() => {
+parsePath('/path/to/your/command').then(() => {
     console.log('done');
 }).catch(err => {
     console.log(`some error here ${err}`);
